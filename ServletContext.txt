@@ -1,0 +1,46 @@
+package ServletContext;
+
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.descriptor.web.ContextService;
+
+import abc.abc;
+
+public class Context extends HttpServlet {
+
+	
+
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//获得初始化对象
+		ServletContext context=	  getServletContext();
+			//获得初始化参数
+		      String initParameter =  context.getInitParameter("driver");
+		      System.out.println(initParameter);
+		      //获得a.txt资源绝对路劲
+		      String Real_a=  context.getRealPath("/a.txt");
+		      System.out.println(Real_a);
+		      //获得b.txt的绝对路径
+		      String Real_b=  context.getRealPath("/WEB-INF/b.txt");
+		      System.out.println(Real_b);
+		    //获得c.txt的绝对路径
+		      String Real_c=  context.getRealPath("/WEB-INF/classes/c.txt");
+		      System.out.println(Real_c);
+		      
+		      //在src（classes）下是同类加载器---专门加载classes文件的
+		      //getResourse的相对地址是classes
+		String Path=     Context.class.getClassLoader().getResource("c.txt").getPath();
+		 System.out.println(Path);
+	}
+	
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+}
